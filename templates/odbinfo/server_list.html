@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block nav-sjkxx %}
+    <li>
+        <a href="#"><i class="fa fa-globe"></i> 数据库信息<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse in">
+            <li>
+                <a href="#">生产环境 <span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                    <li> <a href="/dbinfo/server_list">生产服务列表</a></li>
+                    <li><a href="/dbinfo/server_password_list">生产服务密码表</a></li>
+                    <li> <a href="/dbinfo/oracle_user_list">生产ORACLE用户信息表</a></li>
+                    <li><a href="/dbinfo/mysql_user_list">生产MYSQL密码表</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">办公环境 <span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                    <li> <a href="/odbinfo/o_server_list">办公服务列表</a></li>
+                    <li><a href="/odbinfo/o_server_password_list">办公服务器密码表</a></li>
+                    <li> <a href="/odbinfo/o_oracle_user_list">办公ORACLE用户信息表</a></li>
+                    <li><a href="/odbinfo/o_mysql_user_list">办公MYSQL密码表</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#"><i class="fa fa-globe"></i> 上线信息<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+            <li> <a href="/issues/event_list">上线列表</a> </li>
+            <li> <a href="/issues/system_list">项目列表</a> </li>
+        </ul>
+    </li>
+{% endblock %}
+{% block content %}
+
+    <!-- /#page-wrapper -->
+    <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br />
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            办公数据库服务器列表
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover table-condensed" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">ID</th>
+											<th width="20%">名称</th>
+											<th width="10%">位置</th>
+                                            <th width="10%">IP</th>
+                                            <th width="10%">型号</th>
+                                            <th width="10%">保修</th>
+                                            <th width="10%">服务代码</th>
+                                            <th width="20%">备注</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+{% for server_list in server_lists %}
+                                        <tr class="odd gradeX">
+                                            <td>{{server_list.id}}</td>
+                                            <td>{{ server_list.name }}</td>
+                                            <td>{{server_list.get_pos_display }}</td>
+                                            <td>{{server_list.ip}}</td>
+                                            <td><a herf="#" title="{{server_list.model}}
+{{ server_list.feature }}">{{server_list.get_firm_display }}</a></td>
+                                            <td>
+                                                {% if server_list.buy_time == 1 %}
+                                                    <span style="color: #3f903f;" ><a href="#" title="过保时间：{{ server_list.service_range }}">在保</a></span>
+                                                {% elif server_list.buy_time == 2 %}
+                                                    <span style="color: #FF0000;"> <a href="#" title="过保时间：{{ server_list.service_range }}">过期</a></span>
+                                                {% elif server_list.buy_time == 0 %}
+                                                    <span style="color:blue"><a href="#" title="过保时间：{{ server_list.service_range }}">未知</a></span>
+                                                {% endif %}
+                                            </td>
+                                            <td><a href="{{ server_list.sid }}" title="{{ server_list.sid }}">{{server_list.sn}}</a></td>
+                                            <td>{{server_list.comment}}</td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+
+{% endblock %}
+{% block theme %}
+	<!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/sb-admin-2.js' %}"></script>
+	 <!-- DataTables JavaScript -->
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+

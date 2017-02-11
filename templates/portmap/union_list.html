@@ -1,0 +1,132 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block nav-dkys %}
+<li>
+    <a href="#"><i class="fa fa-product-hunt"></i>端口映射信息<span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse in" >
+        <li>
+            <a href="#">生产环境 <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level">
+                <li>
+                    <a href="/portmap/wan_list">生产公网IP列表</a>
+                </li>
+                <li>
+                    <a href="/portmap/lan_list">生产内网IP列表</a>
+                </li>
+                <li>
+                    <a href="/portmap/map_list">生产端口映射列表</a>
+                </li>
+                <li>
+                    <a href="/portmap/agent_list">生产代理映射表</a>
+                </li>
+                <li>
+                    <a href="/portmap/tunnel_list">银联专线列表</a>
+                </li>
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+         <li>
+            <a href="#">办公环境 <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level">
+                <li>
+                    <a href="/oportmap/wan_list">办公公网IP列表</a>
+                </li>
+                <li>
+                    <a href="/oportmap/lan_list">办公内网IP列表</a>
+                </li>
+                <li>
+                    <a href="/oportmap/map_list">办公端口映射表</a>
+                </li>
+            </ul>
+            <!-- /.nav-third-level -->
+        </li>
+    </ul>
+    <!-- /.nav-second-level -->
+</li>
+{% endblock %}
+{% block content %}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br />
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            专线列表
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover table-condensed" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">ID</th>
+											<th width="10%">专线名称</th>
+											<th width="10%">对端IP</th>
+											<th width="10%">本地IP</th>
+                                            <th width="10%">创建脚本</th>
+                                            <th width="10%">对端业务</th>
+                                            <th width="10%">本端业务</th>
+                                            <th width="10%">技术调试</th>
+                                            <th width="10%">开通时间</th>
+											<th width="15%">说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									
+{% for tunnel_list in tunnel_lists %}
+                                        <tr class="odd gradeX">
+                                            <td>{{tunnel_list.id}}</td>
+                                            <td>{{tunnel_list.name}}</td>
+                                            <td>{{tunnel_list.bank_ip}}</td>
+                                            <td class="center">{{ tunnel_list.local_ip }}</td>
+                                            <td class="center"><a title="{{ tunnel_list.script }}" href="#" >{{ tunnel_list.script|truncatewords:"1" }}</a></td>
+                                            <td class="center">{{ tunnel_list.bank_contact }}</td>
+                                            <td class="center">{{ tunnel_list.local_contact }}</td>
+                                            <td class="center">{{ tunnel_list.tech_contact }}</td>
+                                            <td class="center">{{ tunnel_list.open_date }}</td>
+											<td class="center"><a title="{{ tunnel_list.description }}">{{tunnel_list.description|truncatechars:"20"}}</a></td>
+                                        </tr>
+{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+{% endblock %}
+{% block theme %}
+	<!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/sb-admin-2.js' %}"></script>
+	 <!-- DataTables JavaScript -->
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+

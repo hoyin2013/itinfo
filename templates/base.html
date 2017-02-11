@@ -1,0 +1,217 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}中汇支付系统运维综合信息系统{% endblock %}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+{% block head-css %}{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">欢迎使用中汇支付系统运维综合信息系统</a>
+        </div>
+    <!-- /.navbar-header -->
+{% block nav-top%}
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="/admin"><i class="fa fa-user fa-fw"></i> 后台管理</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="/auth_logout"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+{% endblock %}
+{% block nav-side %}
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/index"><i class="fa fa-dashboard fa-fw"></i> 概览</a>
+                    </li>
+                    <li>
+                        <a href="/shortcut/shortcut_list"><i class="fa fa-link"></i> 快捷方式</a>
+                    </li>
+                     <li>
+                        <a href="/addressbook/address_list"><i class="fa fa-users"></i> 地址簿<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/addressbook/company_list">公司列表</a>
+                            </li>
+                            <li>
+                                <a href="/addressbook/person_list">人员信息</a>
+                            </li>
+                        </ul>
+                    </li>
+            {% block nav-sjkxx %}
+                    <li>
+                        <a href="#"><i class="fa fa-globe"></i> 数据库信息<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">生产环境 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li> <a href="/dbinfo/server_list">生产服务列表</a></li>
+                                    <li><a href="/dbinfo/server_password_list">生产服务密码表</a></li>
+                                    <li> <a href="/dbinfo/oracle_user_list">生产ORACLE用户信息表</a></li>
+                                    <li><a href="/dbinfo/mysql_user_list">生产MYSQL密码表</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">办公环境 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li> <a href="/odbinfo/o_server_list">办公服务列表</a></li>
+                                    <li><a href="/odbinfo/o_server_password_list">办公服务器密码表</a></li>
+                                    <li> <a href="/odbinfo/o_oracle_user_list">办公ORACLE用户信息表</a></li>
+                                    <li><a href="/odbinfo/o_mysql_user_list">办公MYSQL密码表</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-globe"></i> 上线信息<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li> <a href="/issues/event_list">上线列表</a> </li>
+                            <li> <a href="/issues/system_list">项目列表</a> </li>
+                        </ul>
+                    </li>
+            {% endblock %}
+            {% block nav-dkys %}
+                    <li>
+                        <a href="#"><i class="fa fa-product-hunt"></i>端口映射信息<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">生产环境 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="/portmap/wan_list">生产公网IP列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/portmap/lan_list">生产内网IP列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/portmap/map_list">生产端口映射列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/portmap/agent_list">生产代理映射表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/portmap/tunnel_list">银联专线列表</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-third-level -->
+                            </li>
+                             <li>
+                                <a href="#">办公环境 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="/oportmap/wan_list">办公公网IP列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/oportmap/lan_list">办公内网IP列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/oportmap/map_list">办公端口映射表</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-third-level -->
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+            {% endblock %}
+                    <li>
+                        <a href="#"><i class="fa fa-envira"></i> IP资源信息<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/../ipresource/ip_list">IP列表</a>
+                            </li>
+                            <li>
+                                <a href="/../ipresource/pos_list">位置列表</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-braille"></i> 业务系统信息<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/../appinfo/server_list">服务器列表</a>
+                            </li>
+                            <li>
+                                <a href="/../appinfo/business_list">业务系统列表</a>
+                            </li>
+                            <li>
+                                <a href="/../appinfo/app_list">应用列表</a>
+                            </li>
+                            <li>
+                                <a href="/../appinfo/deploy_list">部署列表</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        <!-- /.sidebar-collapse -->
+        </div>
+    <!-- /.navbar-static-side -->
+    </nav>
+{% endblock %}
+
+
+    {% block content %}{% endblock %}
+
+
+</div>
+<!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static 'metisMenu/dist/metisMenu.min.js' %}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/sb-admin-2.js' %}"></script>
+{% block theme %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "admin/change_form.html" %}
+
+{% block footer %}
+        <script type="text/javascript" charset="utf-8">
+            (function($) {
+                $(document).ready(function() {
+                    $('#id_open_date').click(function(){WdatePicker()})
+                });
+            })(grp.jQuery);
+        </script>
+{% endblock %}
